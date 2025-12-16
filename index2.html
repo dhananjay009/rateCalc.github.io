@@ -5,7 +5,7 @@
 
 <title>Multi Product Rate Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
+<!-- <style>
  /* Base Reset */
     * {
       margin: 0;
@@ -141,7 +141,119 @@ button:hover {
       }
     }
 
-</style>
+</style> -->
+
+ <style>
+    /* Base Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px 25px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #ddd;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 22px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .result p {
+      margin: 10px 0;
+    }
+
+    .result span {
+      font-weight: bold;
+    }
+
+    /* Responsive: Larger and centered on small screens */
+    @media (max-width: 600px) {
+      .container {
+        padding: 40px 30px;
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      input, select, button {
+        font-size: 17px;
+      }
+
+      button {
+        padding: 16px;
+      }
+
+      .result {
+        font-size: 17px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -219,6 +331,7 @@ function calculate() {
 
 </body>
 </html>
+
 
 
 
