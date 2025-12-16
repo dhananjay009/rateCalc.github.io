@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Multi Product Rate Calculator</title>
+<style>
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Container / Card Style */
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 500px;
+  border: 1px solid #ddd;
+  margin: 10px auto;
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+/* Labels and Inputs */
+label {
+  display: block;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #333;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+  margin: 4px 0;
+  border-radius: 5px;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Result Display */
+.result {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.result p {
+  margin: 8px 0;
+}
+
+.result span {
+  font-weight: bold;
+}
+
+/* Mobile: compact layout */
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+    padding: 15px;
+    margin: 5px auto;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  input, select, button {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  .result {
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Rate Calculator</h2>
+
+  <label>Select Products</label>
+  <select id="productSelect" multiple onchange="loadProducts()">
+    <option value="Gel 50gm" data-rate="139.50" selected>Gel 50gm</option>
+    <option value="Rollon 75gm" data-rate="186.50" selected>Rollon 75gm</option>
+    <option value="Spray 100ml" data-rate="327.00">Spray 100ml</option>
+  </select>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Rate (₹)</th>
+        <th>Units</th>
+        <th>Discount %</th>
+      </tr>
+    </thead>
+    <tbody id="productTable"></tbody>
+  </table>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div class="result">
+    <p><b>Total Amount:</b> ₹<span id="total">0.00</span></p>
+    <p><b>Total Discount:</b> ₹<span id="discount">0.00</span></p>
+    <p><b>After Discount:</b> ₹<span id="final">0.00</span></p>
+  </div>
+</div>
+
+<script>
+function loadProducts() {
+  const select = document.getElementById("productSelect");
+  const table = document.getElementById("productTable");
+  table.innerHTML = "";
+
+  [...select.selectedOptions].forEach(option => {
+    table.innerHTML += `
+      <tr>
+        <td>${option.value}</td>
+        <td>${option.dataset.rate}</td>
+        <td><input type="number" value="1" min="1"></td>
+        <td><input type="number" value="0" min="0"></td>
+      </tr>
+    `;
+  });
+}
+
+// Preload default products on page load
+window.onload = function() {
+  loadProducts();
+};
+
+function calculate() {
+  let total = 0;
+  let discount = 0;
+
+  document.querySelectorAll("#productTable tr").forEach(row => {
+    const rate = parseFloat(row.cells[1].innerText);
+    const units = parseFloat(row.cells[2].children[0].value);
+    const dis = parseFloat(row.cells[3].children[0].value);
+
+    const amount = rate * units;
+    const disAmt = amount * dis / 100;
+
+    total += amount;
+    discount += disAmt;
+  });
+
+  document.getElementById("total").innerText = total.toFixed(2);
+  document.getElementById("discount").innerText = discount.toFixed(2);
+  document.getElementById("final").innerText = (total - discount).toFixed(2);
+}
+</script>
+
+</body>
+</html>
