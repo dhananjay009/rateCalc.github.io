@@ -22,38 +22,38 @@ body {
 /* Container / Card Style */
 .container {
   background-color: #fff;
-  padding: 30px 25px;
-  border-radius: 10px;
+  padding: 40px 35px;   /* increased padding for bigger container */
+  border-radius: 12px;
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;     /* increased max-width */
   border: 1px solid #ddd;
-  margin: 0 auto; /* centers horizontally */
+  margin: 0 auto;       /* centers horizontally */
 }
 
 /* Heading */
 h2 {
   text-align: center;
   color: #333;
-  margin-bottom: 20px;
-  font-weight: 600;
-  font-size: 22px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 26px;       /* increased font size */
 }
 
 /* Labels and Inputs */
 label {
   display: block;
-  margin-top: 15px;
-  font-size: 15px;
+  margin-top: 18px;     /* more spacing */
+  font-size: 17px;      /* increased font size */
   color: #333;
 }
 
 input, select {
   width: 100%;
-  padding: 12px;
-  margin-top: 6px;
+  padding: 14px;        /* bigger input boxes */
+  margin-top: 8px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
+  border-radius: 8px;
+  font-size: 16px;      /* larger text */
 }
 
 input:focus, select:focus {
@@ -64,33 +64,34 @@ input:focus, select:focus {
 /* Table Styling */
 table {
   width: 100%;
-  margin-top: 15px;
+  margin-top: 20px;
   border-collapse: collapse;
-  font-size: 15px;
+  font-size: 16px;     /* larger text in table */
 }
 
 th, td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;       /* bigger cells */
   text-align: center;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 input[type="number"] {
-  width: 60px;
-  padding: 6px;
-  font-size: 15px;
+  width: 80px;          /* wider number inputs */
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 6px;
 }
 
 /* Button */
 button {
   width: 100%;
-  padding: 14px;
+  padding: 16px;       /* bigger button */
   background-color: #007bff;
   color: white;
-  font-size: 16px;
+  font-size: 18px;     /* larger text */
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-top: 25px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -102,13 +103,13 @@ button:hover {
 
 /* Result Display */
 .result {
-  margin-top: 25px;
-  font-size: 16px;
+  margin-top: 30px;
+  font-size: 18px;     /* bigger text */
   color: #333;
 }
 
 .result p {
-  margin: 10px 0;
+  margin: 12px 0;
 }
 
 .result span {
@@ -118,7 +119,7 @@ button:hover {
 /* Responsive: Mobile */
 @media (max-width: 600px) {
   .container {
-    padding: 40px 30px;
+    padding: 30px 25px;
     font-size: 16px;
   }
 
@@ -128,10 +129,11 @@ button:hover {
 
   input, select, button {
     font-size: 16px;
+    padding: 12px;
   }
 
   button {
-    padding: 16px;
+    padding: 14px;
   }
 
   .result {
@@ -143,7 +145,7 @@ button:hover {
   }
 
   table {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
@@ -225,6 +227,7 @@ function calculate() {
 
 </body>
 </html>
+
 
 
 
