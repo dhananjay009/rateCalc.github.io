@@ -1,229 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Multi Product Rate Calculator</title>
-<style>
-/* Base Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rate Calculator</title>
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
 
-/* Container / Card Style */
-.container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 95%;
-  max-width: 500px;
-  border: 1px solid #ddd;
-  margin: 10px auto;
-}
+    .card {
+      max-width: 380px;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
 
-/* Heading */
-h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 15px;
-  font-weight: 600;
-  font-size: 22px;
-}
+    h2 {
+      text-align: center;
+      margin-bottom: 16px;
+    }
 
-/* Labels and Inputs */
-label {
-  display: block;
-  margin-top: 12px;
-  font-size: 15px;
-  color: #333;
-}
+    .product {
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+    }
 
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-}
+    .row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
 
-input:focus, select:focus {
-  outline: none;
-  border-color: #007bff;
-}
+    .inputs {
+      display: flex;
+      gap: 10px;
+    }
 
-/* Table Styling */
-table {
-  width: 100%;
-  margin-top: 10px;
-  border-collapse: collapse;
-  font-size: 14px;
-}
+    .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-  font-size: 14px;
-}
+    .field label {
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #555;
+    }
 
-input[type="number"] {
-  width: 100%;
-  padding: 6px;
-  font-size: 14px;
-  margin: 4px 0;
-  border-radius: 5px;
-}
+    .field input {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
 
-/* Button */
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  margin-top: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
+    .field input:disabled {
+      background: #f0f0f0;
+      color: #999;
+    }
 
-button:hover {
-  background-color: #0056b3;
-}
+    .summary p {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin: 6px 0;
+    }
 
-/* Result Display */
-.result {
-  margin-top: 15px;
-  font-size: 16px;
-  color: #333;
-}
-
-.result p {
-  margin: 8px 0;
-}
-
-.result span {
-  font-weight: bold;
-}
-
-/* Mobile: compact layout */
-@media (max-width: 600px) {
-  .container {
-    width: 95%;
-    padding: 15px;
-    margin: 5px auto;
-  }
-
-  h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-
-  input, select, button {
-    font-size: 15px;
-    padding: 10px;
-  }
-
-  table {
-    font-size: 13px;
-  }
-
-  .result {
-    font-size: 15px;
-  }
-}
-</style>
+    .final {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h2>Rate Calculator</h2>
+  <div class="card">
+    <h2>Rate Calculator</h2>
 
-  <label>Select Products</label>
-  <select id="productSelect" multiple onchange="loadProducts()">
-    <option value="Gel 50gm" data-rate="139.50" selected>Gel 50gm</option>
-    <option value="Rollon 75gm" data-rate="186.50" selected>Rollon 75gm</option>
-    <option value="Spray 100ml" data-rate="327.00">Spray 100ml</option>
-  </select>
+    <!-- Product 1 -->
+    <div class="product">
+      <div class="row">
+        <span>Gel 50gm</span>
+        <span>₹139.50</span>
+      </div>
+      <div class="inputs">
+        <div class="field">
+          <label>Units</label>
+          <input type="number" min="0" value="0"
+                 class="units" data-rate="139.50">
+        </div>
+        <div class="field">
+          <label>Discount %</label>
+          <input type="number" min="0" max="100" value="0"
+                 class="discount" disabled>
+        </div>
+      </div>
+    </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Rate (₹)</th>
-        <th>Units</th>
-        <th>Discount %</th>
-      </tr>
-    </thead>
-    <tbody id="productTable"></tbody>
-  </table>
+    <!-- Product 2 -->
+    <div class="product">
+      <div class="row">
+        <span>Rollon 75gm</span>
+        <span>₹186.50</span>
+      </div>
+      <div class="inputs">
+        <div class="field">
+          <label>Units</label>
+          <input type="number" min="0" value="0"
+                 class="units" data-rate="186.50">
+        </div>
+        <div class="field">
+          <label>Discount %</label>
+          <input type="number" min="0" max="100" value="0"
+                 class="discount" disabled>
+        </div>
+      </div>
+    </div>
 
-  <button onclick="calculate()">Calculate</button>
+    <!-- Product 3 -->
+    <div class="product">
+      <div class="row">
+        <span>Spray 100ml</span>
+        <span>₹327.00</span>
+      </div>
+      <div class="inputs">
+        <div class="field">
+          <label>Units</label>
+          <input type="number" min="0" value="0"
+                 class="units" data-rate="327.00">
+        </div>
+        <div class="field">
+          <label>Discount %</label>
+          <input type="number" min="0" max="100" value="0"
+                 class="discount" disabled>
+        </div>
+      </div>
+    </div>
 
-  <div class="result">
-    <p><b>Total Amount:</b> ₹<span id="total">0.00</span></p>
-    <p><b>Total Discount:</b> ₹<span id="discount">0.00</span></p>
-    <p><b>After Discount:</b> ₹<span id="final">0.00</span></p>
+    <div class="summary">
+      <p><span>Total Amount</span><span id="totalAmount">₹0.00</span></p>
+      <p><span>Total Discount</span><span id="totalDiscount">₹0.00</span></p>
+      <p class="final"><span>After Discount</span><span id="finalAmount">₹0.00</span></p>
+    </div>
   </div>
-</div>
 
-<script>
-function loadProducts() {
-  const select = document.getElementById("productSelect");
-  const table = document.getElementById("productTable");
-  table.innerHTML = "";
+  <script>
+    const unitsInputs = document.querySelectorAll('.units');
+    const discountInputs = document.querySelectorAll('.discount');
 
-  [...select.selectedOptions].forEach(option => {
-    table.innerHTML += `
-      <tr>
-        <td>${option.value}</td>
-        <td>${option.dataset.rate}</td>
-        <td><input type="number" value="1" min="1"></td>
-        <td><input type="number" value="0" min="0"></td>
-      </tr>
-    `;
-  });
-}
+    unitsInputs.forEach((unitInput, index) => {
+      unitInput.addEventListener('input', () => {
+        // Prevent negative units
+        if (unitInput.value < 0) unitInput.value = 0;
 
-// Preload default products on page load
-window.onload = function() {
-  loadProducts();
-};
+        const units = parseFloat(unitInput.value) || 0;
+        const discountInput = discountInputs[index];
 
-function calculate() {
-  let total = 0;
-  let discount = 0;
+        // Enable/disable discount based on units
+        if (units > 0) {
+          discountInput.disabled = false;
+        } else {
+          discountInput.value = 0;
+          discountInput.disabled = true;
+        }
 
-  document.querySelectorAll("#productTable tr").forEach(row => {
-    const rate = parseFloat(row.cells[1].innerText);
-    const units = parseFloat(row.cells[2].children[0].value);
-    const dis = parseFloat(row.cells[3].children[0].value);
+        calculate();
+      });
+    });
 
-    const amount = rate * units;
-    const disAmt = amount * dis / 100;
+    discountInputs.forEach(discountInput => {
+      discountInput.addEventListener('input', () => {
+        // Prevent negative discount
+        if (discountInput.value < 0) discountInput.value = 0;
+        // Max discount 100%
+        if (discountInput.value > 100) discountInput.value = 100;
+        calculate();
+      });
+    });
 
-    total += amount;
-    discount += disAmt;
-  });
+    function calculate() {
+      let totalAmount = 0;
+      let totalDiscount = 0;
 
-  document.getElementById("total").innerText = total.toFixed(2);
-  document.getElementById("discount").innerText = discount.toFixed(2);
-  document.getElementById("final").innerText = (total - discount).toFixed(2);
-}
-</script>
+      unitsInputs.forEach((unitInput, index) => {
+        const units = parseFloat(unitInput.value) || 0;
+        const rate = parseFloat(unitInput.dataset.rate);
+        const discountPercent = parseFloat(discountInputs[index].value) || 0;
+
+        const amount = rate * units;
+        const discount = amount * (discountPercent / 100);
+
+        totalAmount += amount;
+        totalDiscount += discount;
+      });
+
+      document.getElementById('totalAmount').innerText = `₹${totalAmount.toFixed(2)}`;
+      document.getElementById('totalDiscount').innerText = `₹${totalDiscount.toFixed(2)}`;
+      document.getElementById('finalAmount').innerText =
+        `₹${(totalAmount - totalDiscount).toFixed(2)}`;
+    }
+  </script>
 
 </body>
 </html>
