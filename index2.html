@@ -5,32 +5,38 @@
 <title>Multi Product Rate Calculator</title>
 
 <style>
-  body {
-  font-family: Arial, sans-serif;
+body {
+  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  height: 100vh;             /* full viewport height */
+  margin: 0;
   background: #f2f2f2;
-  font-size: 18px;
 }
 
+
 .container {
-  width: 700px;        /* optional wider width */
-  max-width: 90%;      /* responsive */
-  min-height: 600px;   /* increased height */
+  display: inline-block;       /* width adjusts to content */
+  min-width: 300px;            /* minimum card width */
+  max-width: 700px;            /* optional max width */
   background: #fff;
   padding: 20px;
-  margin: 40px auto;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 40px auto;           /* centers horizontally */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* card shadow */
+  box-sizing: border-box;
+  text-align: center;          /* optional: center heading/content */
 }
 
 h2 {
   text-align: center;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
 }
 
 label {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 select {
@@ -39,6 +45,7 @@ select {
   margin-top: 8px;
   font-size: 16px;
   font-weight: bold;
+  box-sizing: border-box;
 }
 
 table {
@@ -46,11 +53,8 @@ table {
   margin-top: 15px;
   border-collapse: collapse;
   font-size: 16px;
-}
-
-th {
-  font-weight: bold;
-  font-size: 17px;
+  overflow-x: auto;
+  display: block;
 }
 
 th, td {
@@ -78,11 +82,33 @@ button {
   border-radius: 5px;
 }
 
+/* Result styling */
 .result {
   margin-top: 15px;
   font-size: 18px;
   font-weight: bold;
 }
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+  
+  input {
+    width: 100%;   /* easier to tap on mobile */
+    margin: 5px 0;
+  }
+
+  table, th, td {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+}
+
 
 </style>
 </head>
@@ -94,9 +120,9 @@ button {
 
   <label>Select Products</label>
   <select id="productSelect" multiple onchange="loadProducts()">
-    <option value="Roll On  75gms" data-rate="186.50">Biofrost Roll On  75gms</option>
-    <option value="Biofrost Gel 50gm" data-rate="139.50">Biofrost Gel 50gm</option>
-    <option value="Biofrost Spray 100ml" data-rate="327.00">Biofrost Spray 100ml</option>
+    <option value="Rollon" data-rate="186.50">Rollon</option>
+    <option value="Gel" data-rate="139.50">Gel</option>
+    <option value="Spray" data-rate="327.00">Spray</option>
   </select>
 
   <table>
@@ -162,9 +188,5 @@ function calculate() {
 
 </body>
 </html>
-
-
-
-
 
 
