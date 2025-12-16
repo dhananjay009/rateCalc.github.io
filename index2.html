@@ -6,26 +6,24 @@
 
 <style>
 body {
-  display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
-  height: 100vh;             /* full viewport height */
-  margin: 0;
+  font-family: Arial, sans-serif;
   background: #f2f2f2;
+  font-size: 16px;
+  margin: 0;
+  padding: 20px; /* some spacing at top/bottom */
 }
-
 
 .container {
   display: inline-block;       /* width adjusts to content */
   min-width: 300px;            /* minimum card width */
-  max-width: 700px;            /* optional max width */
+  max-width: 700px;            /* maximum width */
+  width: 90%;                  /* responsive width for smaller screens */
   background: #fff;
   padding: 20px;
-  margin: 40px auto;           /* centers horizontally */
+  margin: 20px auto;           /* horizontally centered */
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* card shadow */
   box-sizing: border-box;
-  text-align: center;          /* optional: center heading/content */
 }
 
 h2 {
@@ -67,6 +65,7 @@ input {
   width: 80px;
   font-size: 16px;
   font-weight: bold;
+  box-sizing: border-box;
 }
 
 button {
@@ -82,21 +81,21 @@ button {
   border-radius: 5px;
 }
 
-/* Result styling */
 .result {
   margin-top: 15px;
   font-size: 18px;
   font-weight: bold;
 }
 
-/* Responsive adjustments */
+/* Mobile adjustments */
 @media screen and (max-width: 600px) {
   body {
     font-size: 14px;
+    padding: 10px;
   }
-  
+
   input {
-    width: 100%;   /* easier to tap on mobile */
+    width: 100%; /* easier to tap on mobile */
     margin: 5px 0;
   }
 
@@ -188,6 +187,7 @@ function calculate() {
 
 </body>
 </html>
+
 
 
 
