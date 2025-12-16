@@ -3,80 +3,80 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Multi-Product Rate Calculator</title>
+<title>Interactive Invoice Builder</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
-  .calculator { background: white; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; }
-  h3 { text-align: center; margin-bottom: 20px; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+.calculator { background: white; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; }
+h3 { text-align: center; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+th { background-color: #007bff; color: white; }
+select, input { width: 100%; padding: 6px; box-sizing: border-box; }
+button { margin-top: 15px; padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+button:hover { background: #0056b3; }
+.add-btn { margin-top: 10px; background-color: #28a745; }
+.add-btn:hover { background-color: #1e7e34; }
+.remove-btn { background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
+.remove-btn:hover { background-color: #b02a37; }
 
-  table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-  th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-  th { background-color: #007bff; color: white; }
-  select, input { width: 100%; padding: 6px; box-sizing: border-box; }
-  button { margin-top: 15px; padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-  button:hover { background: #0056b3; }
-  .add-btn { margin-top: 10px; background-color: #28a745; }
-  .add-btn:hover { background-color: #1e7e34; }
-  .remove-btn { background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
-  .remove-btn:hover { background-color: #b02a37; }
+/* Result table desktop style */
+.result-table { width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.result-table thead { background-color: #007bff; color: white; }
+.result-table th, .result-table td { border: 1px solid #ddd; padding: 10px; font-size: 14px; }
+.result-table tbody tr:nth-child(odd) { background-color: #f9f9f9; }
+.result-table tfoot { font-weight: bold; background-color: #e9ecef; }
+.result-table td:nth-child(n+2) { text-align: right; }
 
-  /* Desktop Table */
-  .result-table { width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-  .result-table thead { background-color: #007bff; color: white; }
-  .result-table th, .result-table td { border: 1px solid #ddd; padding: 10px; font-size: 14px; }
-  .result-table tbody tr:nth-child(odd) { background-color: #f9f9f9; }
-  .result-table tfoot { font-weight: bold; background-color: #e9ecef; }
-  .result-table td:nth-child(n+2) { text-align: right; }
+/* Mobile card style */
+@media (max-width: 600px) {
+  .result-table, .result-table thead, .result-table tbody, .result-table th, .result-table td, .result-table tfoot, .result-table tr { display: block; }
+  .result-table thead { display: none; }
+  .result-table td:nth-child(2), .result-table th:nth-child(2) { display: none; }
 
-  /* Mobile Card Style */
-  @media (max-width: 600px) {
-    .result-table, .result-table thead, .result-table tbody, .result-table th, .result-table td, .result-table tfoot, .result-table tr { display: block; }
-    .result-table thead { display: none; }
-
-    .result-table tbody tr {
-      background: #fff;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-      padding: 15px;
-      border-radius: 12px;
-    }
-
-    .result-table tbody td {
-      text-align: left;
-      padding: 8px 10px;
-      border: none;
-      position: relative;
-      font-size: 14px;
-    }
-
-    .result-table tbody td::before {
-      content: attr(data-label);
-      font-weight: bold;
-      display: inline-block;
-      width: 120px;
-      color: #555;
-    }
-
-    /* Color coding for key fields */
-    .total, .after-discount { font-weight: bold; color: #007bff; }
-    .discount { color: #dc3545; font-weight: bold; }
-
-    .result-table tfoot {
-      display: block;
-      background: #e9ecef;
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-
-    .result-table tfoot td { display: block; text-align: left; padding: 5px 0; }
+  .result-table tbody tr {
+    background: #fff;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    padding: 15px;
+    border-radius: 12px;
   }
+
+  .result-table tbody td {
+    text-align: left;
+    padding: 8px 10px;
+    border: none;
+    position: relative;
+    font-size: 14px;
+  }
+
+  .result-table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: inline-block;
+    width: 110px;
+    color: #555;
+  }
+
+  .total { color: #007bff; font-weight: bold; }
+  .after-discount { color: #28a745; font-weight: bold; }
+  .discount { color: #dc3545; font-weight: bold; }
+
+  .result-table tfoot {
+    display: block;
+    background: #e9ecef;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+
+  .result-table tfoot td { display: block; text-align: left; padding: 5px 0; }
+}
 </style>
 </head>
 <body>
 <div class="calculator">
-  <h3>Multi-Product Rate Calculator</h3>
+  <h3>Interactive Invoice Builder</h3>
   <form id="calculatorForm" onsubmit="return false;">
     <table id="productsTable">
       <thead>
@@ -97,7 +97,7 @@
 </div>
 
 <script>
-const products = [
+const productsData = [
   { name: "Biofrost Spray 100ml", rate: 327.00 },
   { name: "Biofrost gel 50gm", rate: 139.50 },
   { name: "Roll On 75gms", rate: 186.50 }
@@ -105,111 +105,79 @@ const products = [
 
 const productsBody = document.getElementById('productsBody');
 const resultDiv = document.getElementById('result');
-addProductRow();
-
-function isProductDuplicate(productRate, currentRow) {
-  const rows = productsBody.querySelectorAll('tr');
-  for (const row of rows) {
-    if (row === currentRow) continue;
-    const select = row.querySelector('select');
-    if (parseFloat(select.value) === productRate) return true;
-  }
-  return false;
-}
 
 function addProductRow() {
-  const selectedRates = new Set();
-  productsBody.querySelectorAll('select').forEach(sel => selectedRates.add(parseFloat(sel.value)));
-  if (selectedRates.size >= products.length) { alert("All products have already been added."); return; }
+  // Prevent adding duplicate products
+  const selectedRates = Array.from(productsBody.querySelectorAll('select')).map(sel => parseFloat(sel.value));
+  if (selectedRates.length >= productsData.length) { alert("All products already added."); return; }
 
   const row = document.createElement('tr');
 
   const productCell = document.createElement('td');
   const select = document.createElement('select');
-  select.onchange = () => {
-    const selectedRate = parseFloat(select.value);
-    if (isProductDuplicate(selectedRate, row)) {
-      alert("This product is already added.");
-      refreshAllSelectOptions();
-    } else {
-      row.querySelector('.rate').value = selectedRate.toFixed(2);
+  productsData.forEach(p => {
+    if (!selectedRates.includes(p.rate)) {
+      const option = document.createElement('option');
+      option.value = p.rate; option.text = p.name + ' - ₹' + p.rate.toFixed(2);
+      select.appendChild(option);
     }
-    clearResults();
-  };
+  });
+  select.onchange = () => { row.querySelector('.rate').value = select.value; calculateTotals(); };
   productCell.appendChild(select); row.appendChild(productCell);
 
   const rateCell = document.createElement('td');
-  const rateInput = document.createElement('input'); rateInput.type='number'; rateInput.className='rate'; rateInput.readOnly=true;
-  rateCell.appendChild(rateInput); row.appendChild(rateCell);
+  const rateInput = document.createElement('input'); rateInput.type='number'; rateInput.readOnly=true; rateInput.className='rate';
+  rateInput.value = select.value; rateCell.appendChild(rateInput); row.appendChild(rateCell);
 
   const unitsCell = document.createElement('td');
   const unitsInput = document.createElement('input'); unitsInput.type='number'; unitsInput.min='1'; unitsInput.value='1';
-  unitsCell.appendChild(unitsInput); row.appendChild(unitsCell);
+  unitsInput.oninput = calculateTotals; unitsCell.appendChild(unitsInput); row.appendChild(unitsCell);
 
   const discountCell = document.createElement('td');
   const discountInput = document.createElement('input'); discountInput.type='number'; discountInput.min='0'; discountInput.max='100'; discountInput.value='0';
-  discountCell.appendChild(discountInput); row.appendChild(discountCell);
+  discountInput.oninput = calculateTotals; discountCell.appendChild(discountInput); row.appendChild(discountCell);
 
   const removeCell = document.createElement('td');
   const removeBtn = document.createElement('button'); removeBtn.type='button'; removeBtn.className='remove-btn'; removeBtn.textContent='X';
-  removeBtn.onclick = () => { row.remove(); clearResults(); refreshAllSelectOptions(); };
+  removeBtn.onclick = () => { row.remove(); calculateTotals(); };
   removeCell.appendChild(removeBtn); row.appendChild(removeCell);
 
   productsBody.appendChild(row);
-  refreshAllSelectOptions();
+  calculateTotals();
 }
-
-function refreshAllSelectOptions() {
-  const rows = productsBody.querySelectorAll('tr');
-  rows.forEach(row => {
-    const select = row.querySelector('select'); const currentValue = select.value; select.innerHTML='';
-    products.forEach(p => {
-      const selectedElsewhere = Array.from(productsBody.querySelectorAll('tr')).some(r => {
-        if(r===row) return false; return parseFloat(r.querySelector('select').value)===p.rate;
-      });
-      if(!selectedElsewhere || currentValue==p.rate){
-        const option=document.createElement('option'); option.value=p.rate; option.text=p.name+' - ₹'+p.rate.toFixed(2); select.appendChild(option);
-      }
-    });
-    if(Array.from(select.options).some(opt=>opt.value==currentValue)) select.value=currentValue;
-    else if(select.options.length>0) select.value=select.options[0].value;
-    row.querySelector('.rate').value=parseFloat(select.value).toFixed(2);
-  });
-}
-
-function clearResults(){ resultDiv.innerHTML=''; }
 
 function calculateTotals() {
   const rows = productsBody.querySelectorAll('tr');
-  if(rows.length===0){ resultDiv.innerHTML='<b>Please add at least one product.</b>'; return; }
+  if (rows.length===0) { resultDiv.innerHTML='<b>Please add at least one product.</b>'; return; }
 
   let grandTotal=0, grandDiscount=0, grandAfterDiscount=0;
   let html=`<table class="result-table"><tbody>`;
 
   rows.forEach(row=>{
-    const select=row.querySelector('select'); const productName=select.options[select.selectedIndex].text.split(' - ₹')[0];
+    const select=row.querySelector('select');
+    const name = select.options[select.selectedIndex].text.split(' - ₹')[0];
     const rate=parseFloat(row.querySelector('.rate').value);
     const units=parseInt(row.cells[2].querySelector('input').value);
     const discount=parseFloat(row.cells[3].querySelector('input').value);
-    const totalAmount=rate*units;
-    const discountAmount=(totalAmount*discount)/100;
-    const afterDiscount=totalAmount-discountAmount;
-    grandTotal+=totalAmount; grandDiscount+=discountAmount; grandAfterDiscount+=afterDiscount;
+    const total=rate*units;
+    const discountAmt=(total*discount)/100;
+    const afterDiscount=total-discountAmt;
+
+    grandTotal+=total; grandDiscount+=discountAmt; grandAfterDiscount+=afterDiscount;
 
     html+=`<tr>
-      <td data-label="Product Name">${productName}</td>
-      <td data-label="Rate (₹)">₹${rate.toFixed(2)}</td>
+      <td data-label="Product Name">${name}</td>
       <td data-label="Units">${units}</td>
-      <td data-label="Total Amount (₹)" class="total">₹${totalAmount.toFixed(2)}</td>
+      <td data-label="Total Amount (₹)" class="total">₹${total.toFixed(2)}</td>
       <td data-label="Discount %" class="discount">${discount.toFixed(2)}%</td>
-      <td data-label="Discount Amount (₹)" class="discount">₹${discountAmount.toFixed(2)}</td>
+      <td data-label="Discount Amount (₹)" class="discount">₹${discountAmt.toFixed(2)}</td>
       <td data-label="After Discount (₹)" class="after-discount">₹${afterDiscount.toFixed(2)}</td>
     </tr>`;
   });
 
   html+=`<tfoot>
     <tr>
-      <td colspan="3">Grand Total</td>
+      <td colspan="2">Grand Total</td>
       <td>₹${grandTotal.toFixed(2)}</td>
       <td></td>
       <td>₹${grandDiscount.toFixed(2)}</td>
@@ -219,6 +187,9 @@ function calculateTotals() {
 
   resultDiv.innerHTML=html;
 }
+
+// Initialize with one row
+addProductRow();
 </script>
 </body>
 </html>
