@@ -80,6 +80,46 @@
       font-size: 16px;
       font-weight: bold;
     }
+
+    .share-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background: linear-gradient(135deg, #25D366, #1ebe57);
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(37, 211, 102, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.share-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 8px rgba(37, 211, 102, 0.3);
+}
+
+.share-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.share-btn .icon {
+  font-size: 18px;
+}
+
   </style>
 </head>
 
@@ -153,9 +193,16 @@
       <p><span>Total Discount</span><span id="totalDiscount">₹0.00</span></p>
       <p class="final"><span>After Discount</span><span id="finalAmount">₹0.00</span></p>
     </div>
-       </div>
-     <div>
+      <div>
+        <button id="shareWhatsApp" class="share-btn">
+  <span class="icon">📸</span>
+  <span>Share on WhatsApp</span>
+</button>
+  </div>
+     </div>
+
     
+<!-- 
     <button id="shareWhatsApp"
   style="
     width:100%;
@@ -168,10 +215,9 @@
     font-weight:bold;
     cursor:pointer;">
   Share Screenshot on WhatsApp 📸
-</button>
-  </div>
- 
+</button> -->
 
+ 
 
 
 
@@ -264,9 +310,34 @@
     }
   });
 </script>
+<script>
+  function setupAutoClearZero(inputs) {
+    inputs.forEach(input => {
+
+      // Remove 0 when user starts typing
+      input.addEventListener('focus', () => {
+        if (input.value === '0') {
+          input.value = '';
+        }
+      });
+
+      // Restore 0 if left empty
+      input.addEventListener('blur', () => {
+        if (input.value === '') {
+          input.value = '0';
+          calculate();
+        }
+      });
+
+    });
+  }
+
+  setupAutoClearZero(document.querySelectorAll('.units'));
+  setupAutoClearZero(document.querySelectorAll('.discount'));
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 
 </body>
 </html>
-
