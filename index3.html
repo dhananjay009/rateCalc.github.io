@@ -147,13 +147,32 @@
         </div>
       </div>
     </div>
-
+      
     <div class="summary">
       <p><span>Total Amount</span><span id="totalAmount">₹0.00</span></p>
       <p><span>Total Discount</span><span id="totalDiscount">₹0.00</span></p>
       <p class="final"><span>After Discount</span><span id="finalAmount">₹0.00</span></p>
     </div>
+    
+    <button id="shareWhatsApp"
+  style="
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    background:#25D366;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;">
+  Share Screenshot on WhatsApp 📸
+</button>
   </div>
+ 
+
+
+
+
 
   <script>
     const unitsInputs = document.querySelectorAll('.units');
@@ -211,6 +230,40 @@
         `₹${(totalAmount - totalDiscount).toFixed(2)}`;
     }
   </script>
+  <script>
+  document.getElementById('shareWhatsApp').addEventListener('click', async () => {
+    const card = document.querySelector('.card');
+
+    try {
+      const canvas = await html2canvas(card, {
+        scale: 2,
+        useCORS: true
+      });
+
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], 'rate-calculator.png', {
+          type: 'image/png'
+        });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'Rate Calculator',
+            text: 'Rate Calculator Summary'
+          });
+        } else {
+          alert('WhatsApp image sharing is supported only on mobile browsers.');
+        }
+      });
+
+    } catch (err) {
+      alert('Failed to capture screenshot');
+      console.error(err);
+    }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 
 </body>
 </html>
