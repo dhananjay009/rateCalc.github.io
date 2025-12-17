@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <title>Rate Calculator</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .card {
+      max-width: 380px;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .product {
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .inputs {
+      display: flex;
+      gap: 10px;
+    }
+
+    .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field label {
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #555;
+    }
+
+    .field input {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .field input:disabled {
+      background: #f0f0f0;
+      color: #999;
+    }
+
+    .subtotal {
+      text-align: right;
+      font-size: 13px;
+      color: #444;
+      margin-top: 4px;
+    }
+
+    .summary p {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin: 6px 0;
+    }
+
+    .final {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .share-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #25D366, #1ebe57);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(37, 211, 102, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+
+    .share-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 3px 8px rgba(37, 211, 102, 0.3);
+    }
+
+    .share-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .share-btn .icon {
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2>Rate Calculator</h2>
+
+    <!-- Product 1 -->
+    <div class="product">
+      <div class="row">
+        <span>Gel 50gm ₹139.50</span>
+         <div class="subtotal">Subtotal: ₹0.00</div>
+      </div>
+      <div class="inputs">
+        <div class="field">
+          <label>Discount %</label>
+          <input type="number" min="0" max="100" value="0" class="discount">
+        </div>
+        <div class="field">
+          <label>Units</label>
+          <input type="number" min="0" value="0" class="units" data-rate="139.50">
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product">
+      <div class="row">
+         <span>RollOn 75gm <span>  ₹186.50</span>  </span> 
+         <div class="subtotal">Subtotal: ₹0.00</div>
+      </div>
+      <div class="inputs">
+        <div class="field">
+          <label>Discount %</label>
+          <input type="number" min="0" max="100" value="0" class="discount">
+        </div>
+        <div class="field">
+          <label>Units</label>
+          <input type="number" min="0" value="0" class="units" data-rate="186.50">
+        </div>
+      </div>
+     
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product">
+      <div class="row">
+        <span>Spray 100ml ₹327.00</span>
+          <div class="subtotal">Subtotal: ₹0.00</div>
+      </div>
+      <div class="inputs">
+        <div class="field">
+          <label>Discount %</label>
+          <input type="number" min="0" max="100" value="0" class="discount">
+        </div>
+        <div class="field">
+          <label>Units</label>
+          <input type="number" min="0" value="0" class="units" data-rate="327.00">
+        </div>
+      </div>
+    
+    </div>
+
+    <div class="summary">
+      <p><span>Total Amount</span><span id="totalAmount">₹0.00</span></p>
+      <p><span>Total Discount</span><span id="totalDiscount">₹0.00</span></p>
+      <p class="final"><span>After Discount</span><span id="finalAmount">₹0.00</span></p>
+    </div>
+  </div>
+
+  <div>
+    <button id="shareWhatsApp" class="share-btn">
+      <span class="icon">📸</span>
+      <span>Share on WhatsApp</span>
+    </button>
+  </div>
+
+<script>
+  const discounts = document.querySelectorAll(".discount");
+  const units = document.querySelectorAll(".units");
+  const subtotals = document.querySelectorAll(".subtotal");
+
+  // Clear zero on focus
+  [...discounts, ...units].forEach(input => {
+    input.addEventListener("focus", () => { if (input.value === "0") input.value = ""; });
+    input.addEventListener("blur", () => { if (input.value === "") input.value = "0"; calculate(); });
+  });
+
+  // Auto-set unit to 1 when discount > 0
+  discounts.forEach((discountInput, index) => {
+    discountInput.addEventListener("input", () => {
+      const discountVal = parseFloat(discountInput.value) || 0;
+      const unitInput = units[index];
+      if (discountVal > 0 && parseFloat(unitInput.value) === 0) unitInput.value = 1;
+      calculate();
+    });
+  });
+
+  units.forEach(input => input.addEventListener("input", calculate));
+
+  function calculate() {
+    let totalAmount = 0, totalDiscount = 0;
+    units.forEach((unitInput, index) => {
+      const rate = parseFloat(unitInput.dataset.rate);
+      const qty = parseFloat(unitInput.value) || 0;
+      const discountPercent = parseFloat(discounts[index].value) || 0;
+      const productTotal = rate * qty;
+      const discountValue = productTotal * (discountPercent / 100);
+      const subtotal = productTotal - discountValue;
+
+      // Update per-product subtotal
+      subtotals[index].textContent = "Subtotal: ₹" + subtotal.toFixed(2);
+
+      totalAmount += productTotal;
+      totalDiscount += discountValue;
+    });
+
+    document.getElementById("totalAmount").textContent = "₹" + totalAmount.toFixed(2);
+    document.getElementById("totalDiscount").textContent = "₹" + totalDiscount.toFixed(2);
+    document.getElementById("finalAmount").textContent = "₹" + (totalAmount - totalDiscount).toFixed(2);
+  }
+
+  // WhatsApp Share
+  document.getElementById("shareWhatsApp").addEventListener("click", () => {
+    const card = document.querySelector(".card");
+    html2canvas(card, { scale: 2 }).then(canvas => {
+      canvas.toBlob(blob => {
+        const file = new File([blob], "rate-calculation.png", { type: "image/png" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file], title: "Rate Calculator", text: "Rate calculation" });
+        } else {
+          alert("Sharing not supported on this device");
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
